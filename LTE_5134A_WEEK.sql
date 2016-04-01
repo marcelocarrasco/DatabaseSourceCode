@@ -1,9 +1,0 @@
---------------------------------------------------------
---  DDL for View LTE_5134A_WEEK
---------------------------------------------------------
-
-  CREATE OR REPLACE VIEW "HARRIAGUE"."LTE_5134A_WEEK" ("PERIOD_START_TIME", "CO_NAME", "LTE_5134A") AS 
-  SELECT TRUNC( PERIOD_START_TIME  , 'DAY') AS PERIOD_START_TIME, CO_NAME, ROUND( AVG(PDCP_SDU_DELAY_DL_DTCH_MEAN),2) AS LTE_5134A
-FROM LTE_5134A_HISTORICAL
-GROUP BY TRUNC( PERIOD_START_TIME  , 'DAY'), CO_NAME
-;

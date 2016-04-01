@@ -1,9 +1,0 @@
---------------------------------------------------------
---  Constraints for Table LTE_NSN_SERVICE_LCEL_DAY
---------------------------------------------------------
-
-  ALTER TABLE "HARRIAGUE"."LTE_NSN_SERVICE_LCEL_DAY" ADD CONSTRAINT "LTE_NSN_SERVICE_LCEL_DAY_PK" PRIMARY KEY ("FECHA", "LNCEL_ID") ENABLE;
- 
-  ALTER TABLE "HARRIAGUE"."LTE_NSN_SERVICE_LCEL_DAY" MODIFY ("FECHA" NOT NULL ENABLE);
- 
-  ALTER TABLE "HARRIAGUE"."LTE_NSN_SERVICE_LCEL_DAY" MODIFY ("LNCEL_ID" NOT NULL ENABLE);

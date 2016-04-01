@@ -1,9 +1,0 @@
---------------------------------------------------------
---  Constraints for Table LTE_TRAFIC_LCEL_IBHM_AUX
---------------------------------------------------------
-
-  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHM_AUX" ADD CONSTRAINT "LTE_TRAFIC_LCEL_IBHM_AUX_PK" PRIMARY KEY ("FECHA", "LNCEL_ID") ENABLE;
- 
-  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHM_AUX" MODIFY ("FECHA" NOT NULL ENABLE);
- 
-  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHM_AUX" MODIFY ("LNCEL_ID" NOT NULL ENABLE);

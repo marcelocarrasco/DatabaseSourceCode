@@ -1,9 +1,0 @@
---------------------------------------------------------
---  DDL for View FLNS_5040B
---------------------------------------------------------
-
-  CREATE OR REPLACE VIEW "HARRIAGUE"."FLNS_5040B" ("FECHA", "PERIOD_DURATION", "FINS_ID", "TA_ID", "MME_NAME", "EPS_S1HO_SUCC", "EPS_S1HO_FAIL") AS 
-  SELECT FECHA, PERIOD_DURATION, FINS_ID, TA_ID,MME_NAME, EPS_S1HO_SUCC, EPS_S1HO_FAIL
-FROM FLNS_5040B_HISTORICAL
-WHERE FECHA >= (SELECT SYSDATE - 45 FROM DUAL)
-;

@@ -1,9 +1,0 @@
---------------------------------------------------------
---  DDL for View FLNS_5001A
---------------------------------------------------------
-
-  CREATE OR REPLACE VIEW "HARRIAGUE"."FLNS_5001A" ("FECHA", "PERIOD_DURATION", "FINS_ID", "MME_NAME", "TA_ID", "EPS_ATTACH_SUCC", "EPS_ATTACH_FAIL") AS 
-  SELECT FECHA, PERIOD_DURATION, FINS_ID, MME_NAME, TA_ID, EPS_ATTACH_SUCC, EPS_ATTACH_FAIL
-FROM FLNS_5001A_HISTORICAL
-WHERE FECHA >= (SELECT SYSDATE - 45 FROM DUAL)
-;

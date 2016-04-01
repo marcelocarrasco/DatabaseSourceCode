@@ -1,9 +1,0 @@
---------------------------------------------------------
---  DDL for View CORE_CISCO_L81C01_GGSN_MONTH
---------------------------------------------------------
-
-  CREATE OR REPLACE VIEW "HARRIAGUE"."CORE_CISCO_L81C01_GGSN_MONTH" ("FECHA", "GWNAME", "PGW_LICENSING") AS 
-  SELECT TRUNC( FECHA, 'MONTH') as FECHA, GWNAME,SUM(PGWACTIVEDATA) AS PGW_LICENSING
-FROM CORE_CISCO_L81C01_GGSN_HIST
-GROUP BY  TRUNC( FECHA, 'MONTH'), GWNAME
-;
