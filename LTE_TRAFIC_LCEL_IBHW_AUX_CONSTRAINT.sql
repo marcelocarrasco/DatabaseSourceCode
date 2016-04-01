@@ -1,0 +1,9 @@
+--------------------------------------------------------
+--  Constraints for Table LTE_TRAFIC_LCEL_IBHW_AUX
+--------------------------------------------------------
+
+  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHW_AUX" ADD CONSTRAINT "LTE_TRAFIC_LCEL_IBHW_AUX_PK" PRIMARY KEY ("FECHA", "LNCEL_ID") ENABLE;
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHW_AUX" MODIFY ("FECHA" NOT NULL ENABLE);
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_TRAFIC_LCEL_IBHW_AUX" MODIFY ("LNCEL_ID" NOT NULL ENABLE);

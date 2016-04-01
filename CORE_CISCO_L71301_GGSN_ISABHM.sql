@@ -1,0 +1,28 @@
+--------------------------------------------------------
+--  DDL for View CORE_CISCO_L71301_GGSN_ISABHM
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."CORE_CISCO_L71301_GGSN_ISABHM" ("FECHA", "GWNAME", "SERVID", "SERVNAME", "UPLINK_THROUGHPUT") AS 
+  SELECT TRUNC(hist.FECHA , 'MONTH') AS FECHA, hist.GWNAME, hist.SERVID, hist.SERVNAME, ROUND(AVG(hist.UPLINK_THROUGHPUT),2 ) AS UPLINK_THROUGHPUT
+FROM(
+      SELECT TRUNC(FECHA, 'HH24') AS FECHA, GWNAME, SERVID, SERVNAME, ROUND (AVG(UPLINK_THROUGHPUT), 2) AS UPLINK_THROUGHPUT
+      FROM CORE_CISCO_L71301_GGSN_HIST
+      GROUP BY TRUNC(FECHA, 'HH24'), SERVID, GWNAME, SERVNAME
+    ) hist
+INNER JOIN (
+           SELECT FECHA, GWNAME, SERVID, SERVNAME, SEQNUM
+            FROM (
+                  SELECT FECHA , GWNAME, SERVID, SERVNAME, ROW_NUMBER()
+                        OVER (
+                          PARTITION BY TRUNC(FECHA , 'MONTH'), GWNAME, SERVID, SERVNAME
+                          ORDER BY VALOR DESC) SEQNUM
+                  FROM L71301_L71303_BH_AUX2
+                  )
+            WHERE SEQNUM < 4
+        ) bh
+ON bh.FECHA = hist.FECHA
+AND bh.GWNAME = hist.GWNAME
+AND bh.SERVID = hist.SERVID
+AND bh.SERVNAME = hist.SERVNAME
+GROUP BY TRUNC(hist.FECHA , 'MONTH'), hist.GWNAME, hist.SERVID, hist.SERVNAME
+;

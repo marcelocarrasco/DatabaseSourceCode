@@ -1,0 +1,9 @@
+--------------------------------------------------------
+--  Constraints for Table LTE_NSN_AVAIL_LCEL_IBHM
+--------------------------------------------------------
+
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_IBHM" ADD CONSTRAINT "LTE_NSN_AVAIL_LCEL_IBHM_PK" PRIMARY KEY ("FECHA", "LNCEL_ID") ENABLE;
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_IBHM" MODIFY ("FECHA" NOT NULL ENABLE);
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_IBHM" MODIFY ("LNCEL_ID" NOT NULL ENABLE);

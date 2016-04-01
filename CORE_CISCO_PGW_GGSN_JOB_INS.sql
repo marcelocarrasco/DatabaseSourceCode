@@ -1,0 +1,22 @@
+--------------------------------------------------------
+--  DDL for Procedure CORE_CISCO_PGW_GGSN_JOB_INS
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "HARRIAGUE"."CORE_CISCO_PGW_GGSN_JOB_INS" 
+IS
+-- Autor: Mariano Moron. Fecha: 22.09.2015.
+P_FECHA_DESDE VARCHAR2(15) := TO_CHAR( TRUNC(SYSDATE, 'HH24') - 4/24, 'DD.MM.YYYY HH24');
+P_FECHA_HASTA VARCHAR2(15) := TO_CHAR( TRUNC(SYSDATE, 'HH24') - 1 + (86399 / 86400), 'DD.MM.YYYY HH24');
+
+ BEGIN
+
+  CORE_CISCO_L81513_GGSN_P (P_FECHA_DESDE, P_FECHA_HASTA );
+
+  CORE_CISCO_L81505_GGSN_P (P_FECHA_DESDE, P_FECHA_HASTA );
+
+  CORE_CISCO_L81201_GGSN_P (P_FECHA_DESDE, P_FECHA_HASTA );
+
+ END;
+
+/

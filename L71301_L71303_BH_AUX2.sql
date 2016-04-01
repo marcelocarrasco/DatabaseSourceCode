@@ -1,0 +1,40 @@
+--------------------------------------------------------
+--  DDL for View L71301_L71303_BH_AUX2
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."L71301_L71303_BH_AUX2" ("FECHA", "GWNAME", "SERVID", "SERVNAME", "VALOR") AS 
+  SELECT FECHA,
+           GWNAME,
+           SERVID,
+           SERVNAME,
+           VALOR
+      FROM (
+    SELECT STUB.FECHA,
+           SDB.GWNAME,
+           SDB.SERVID,
+           SDB.SERVNAME,
+           (STUB.UPLINK_THROUGHPUT + SDB.DOWNLINK_THROUGHPUT) VALOR,
+           ROW_NUMBER() OVER (PARTITION BY TRUNC(SDB.FECHA),
+                                           SDB.GWNAME,
+                                           SDB.SERVID,
+                                           SDB.SERVNAME
+                                  ORDER BY (STUB.UPLINK_THROUGHPUT + SDB.DOWNLINK_THROUGHPUT) DESC,
+                                           SDB.FECHA DESC) SEQNUM
+      FROM (
+    SELECT TRUNC(FECHA, 'HH24') FECHA, GWNAME, SERVID, SERVNAME, ROUND (AVG(UPLINK_THROUGHPUT), 2) AS UPLINK_THROUGHPUT
+      FROM CORE_CISCO_L71301_GGSN_HIST
+     GROUP BY TRUNC(FECHA, 'HH24'), SERVID, GWNAME, SERVNAME
+           ) STUB
+INNER JOIN (
+    SELECT TRUNC(FECHA, 'HH24') FECHA, GWNAME, SERVID, SERVNAME, ROUND (AVG(DOWNLINK_THROUGHPUT), 2) AS DOWNLINK_THROUGHPUT
+      FROM CORE_CISCO_L71303_GGSN_HIST
+     GROUP BY TRUNC(FECHA, 'HH24'), SERVID, GWNAME, SERVNAME
+           ) SDB
+        ON STUB.FECHA = SDB.FECHA
+       AND STUB.SERVID = SDB.SERVID
+       AND STUB.GWNAME = SDB.GWNAME
+       AND STUB.SERVNAME = SDB.SERVNAME
+           )
+    WHERE SEQNUM = 1
+   ORDER BY SERVNAME, GWNAME, FECHA
+;

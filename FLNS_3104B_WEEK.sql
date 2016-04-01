@@ -1,0 +1,11 @@
+--------------------------------------------------------
+--  DDL for View FLNS_3104B_WEEK
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."FLNS_3104B_WEEK" ("FECHA", "PERIOD_DURATION", "FINS_ID", "MME_NAME", "TA_ID", "FLNS_3104B") AS 
+  SELECT TRUNC( FECHA  , 'DAY') AS FECHA,
+      PERIOD_DURATION, FINS_ID, MME_NAME,TA_ID, ROUND (DECODE (AVG(PERIOD_DURATION*60), 0 ,0,
+              SUM(FLNS_3104B) / AVG(PERIOD_DURATION*60) ) , 2) AS FLNS_3104B
+FROM FLNS_3104B
+GROUP BY TRUNC( FECHA  , 'DAY') , PERIOD_DURATION, FINS_ID, TA_ID, MME_NAME
+;

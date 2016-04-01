@@ -1,0 +1,27 @@
+--------------------------------------------------------
+--  DDL for View CORE_CISCO_L81804_GGSN_ISABHW
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."CORE_CISCO_L81804_GGSN_ISABHW" ("FECHA", "GWNAME", "DIAMETER_CC_TERMINATION_SUCC_R") AS 
+  SELECT TRUNC(hist.FECHA , 'DAY') AS FECHA, hist.GWNAME, ROUND(AVG(hist.DIAMETER_CC_TERMINATION_SUCC_R),2 ) AS DIAMETER_CC_TERMINATION_SUCC_R
+FROM(
+      SELECT TRUNC(FECHA, 'HH24') AS FECHA, GWNAME,
+      ROUND (((DECODE (SUM(CCMSGCCRFINAL), 0, 0, SUM(CCMSGCCAFINAL) / SUM(CCMSGCCRFINAL)) )*100),2) as DIAMETER_CC_TERMINATION_SUCC_R
+      FROM CORE_CISCO_L81804_GGSN_HIST
+      GROUP BY TRUNC(FECHA, 'HH24'), GWNAME
+    ) hist
+INNER JOIN (
+           SELECT FECHA, GWNAME, SERVID, SERVNAME, SEQNUM
+            FROM (
+                  SELECT FECHA , GWNAME, SERVID, SERVNAME, ROW_NUMBER()
+                        OVER (
+                          PARTITION BY TRUNC(FECHA , 'DAY'), GWNAME, SERVID, SERVNAME
+                          ORDER BY VALOR DESC) SEQNUM
+                  FROM L81505_L81513_BH_AUX2
+                  )
+            WHERE SEQNUM < 4
+        ) bh
+ON bh.FECHA = hist.FECHA
+AND bh.GWNAME = hist.GWNAME
+GROUP BY TRUNC(hist.FECHA , 'DAY'), hist.GWNAME
+;

@@ -1,0 +1,16 @@
+--------------------------------------------------------
+--  DDL for View CORE_CISCO_L81C01_GGSN_BH
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."CORE_CISCO_L81C01_GGSN_BH" ("FECHA", "GWNAME", "PGW_LICENSING") AS 
+  SELECT hist.FECHA, hist.GWNAME, hist.PGW_LICENSING
+FROM (
+      SELECT TRUNC(FECHA, 'HH24') AS FECHA, GWNAME,
+      SUM(PGWACTIVEDATA) AS PGW_LICENSING
+      FROM CORE_CISCO_L81C01_GGSN_HIST
+      GROUP BY TRUNC(FECHA, 'HH24'), GWNAME
+) hist
+INNER JOIN L81505_L81513_BH_AUX2 aux
+ON hist.FECHA = aux.FECHA
+AND hist.GWNAME = aux.GWNAME
+;

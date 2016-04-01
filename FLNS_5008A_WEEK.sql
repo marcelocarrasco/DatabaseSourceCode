@@ -1,0 +1,11 @@
+--------------------------------------------------------
+--  DDL for View FLNS_5008A_WEEK
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."FLNS_5008A_WEEK" ("FECHA", "PERIOD_DURATION", "FINS_ID", "TA_ID", "MME_NAME", "FLNS_5008A") AS 
+  SELECT TRUNC( FECHA  , 'DAY') AS FECHA , PERIOD_DURATION, FINS_ID, TA_ID, MME_NAME,
+		ROUND ((DECODE (SUM(EPS_TAU_FAIL), 0 ,0,
+              SUM(EPS_TAU_SUCC) / SUM(EPS_TAU_FAIL) ) ) * 100, 2) AS FLNS_5008A
+FROM FLNS_5008A_HISTORICAL
+GROUP BY FINS_ID, TA_ID, PERIOD_DURATION, MME_NAME,TRUNC( FECHA  , 'DAY')
+;

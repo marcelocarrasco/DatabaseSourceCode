@@ -1,0 +1,9 @@
+--------------------------------------------------------
+--  Constraints for Table LTE_NSN_AVAIL_LCEL_DAYW
+--------------------------------------------------------
+
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_DAYW" ADD CONSTRAINT "LTE_NSN_AVAIL_LCEL_DAYW_PK" PRIMARY KEY ("FECHA", "LNCEL_ID") ENABLE;
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_DAYW" MODIFY ("FECHA" NOT NULL ENABLE);
+ 
+  ALTER TABLE "HARRIAGUE"."LTE_NSN_AVAIL_LCEL_DAYW" MODIFY ("LNCEL_ID" NOT NULL ENABLE);

@@ -1,0 +1,23 @@
+--------------------------------------------------------
+--  DDL for Procedure P_LTE_NSN_LCEL_BH_CALC
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE PROCEDURE "HARRIAGUE"."P_LTE_NSN_LCEL_BH_CALC" (P_FECHA_DESDE IN CHAR, P_FECHA_HASTA IN CHAR)
+IS
+-- Autor: Mariano Moron. Fecha: 15.09.2015.
+
+BEGIN
+
+EXECUTE IMMEDIATE 'UPDATE CALIDAD_PARAMETROS SET PRM_VALUE = '''||P_FECHA_DESDE||''' WHERE PRM_ID = 275'; -- Update Fecha Desde
+
+EXECUTE IMMEDIATE 'UPDATE CALIDAD_PARAMETROS SET PRM_VALUE = '''||P_FECHA_HASTA||''' WHERE PRM_ID = 276'; -- Update Fecha Hasta
+
+COMMIT;
+
+DBMS_SNAPSHOT.REFRESH( 'MV_MME_USERS_PLMN_BH_AUX_NEW');
+DBMS_SNAPSHOT.REFRESH( 'MV_LTE_TRAFIC_LCEL_BH_AUX');
+
+END;
+
+/

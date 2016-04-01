@@ -1,0 +1,10 @@
+--------------------------------------------------------
+--  DDL for View LTE_5292B_WEEK
+--------------------------------------------------------
+
+  CREATE OR REPLACE VIEW "HARRIAGUE"."LTE_5292B_WEEK" ("PERIOD_START_TIME", "CO_NAME", "LTE_5292B") AS 
+  SELECT TRUNC( PERIOD_START_TIME  , 'DAY') AS PERIOD_START_TIME, CO_NAME,
+    ROUND( AVG(PDCP_DATA_RATE_MEAN_DL),2) AS LTE_5292B
+FROM LTE_5292B_HISTORICAL
+GROUP BY TRUNC( PERIOD_START_TIME  , 'DAY'), CO_NAME
+;
